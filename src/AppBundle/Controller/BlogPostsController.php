@@ -9,13 +9,18 @@ declare(strict_types=1);
 
 namespace AppBundle\Controller;
 
-//use AppBundle\Form\Type\BlogPostType;
 use AppBundle\Entity\BlogPost;
 use AppBundle\Form\Type\BlogPostType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * Class BlogPostsController
+ * @package AppBundle\Controller
+ *
+ * @Route("/blog")
+ */
 class BlogPostsController extends Controller
 {
     /**
@@ -70,6 +75,7 @@ class BlogPostsController extends Controller
     {
         $form = $this->createForm(BlogPostType::class, $blogPost);
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->flush();
@@ -97,6 +103,7 @@ class BlogPostsController extends Controller
         if ($blogPost === null) {
             return $this->redirectToRoute('list');
         }
+
         $em = $this->getDoctrine()->getManager();
         $em->remove($blogPost);
         $em->flush();

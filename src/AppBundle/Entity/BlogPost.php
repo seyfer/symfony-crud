@@ -3,10 +3,12 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as JMSSerializer;
 
 /**
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\BlogPostRepository")
  * @ORM\Table(name="blog_post")
+ * @JMSSerializer\ExclusionPolicy("all")
  */
 class BlogPost implements \JsonSerializable
 {
@@ -14,18 +16,21 @@ class BlogPost implements \JsonSerializable
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @JMSSerializer\Expose
      */
     protected $id;
 
     /**
      * @ORM\Column(type="string", name="title")
+     * @JMSSerializer\Expose
      */
-    protected $title;
+    private $title;
 
     /**
      * @ORM\Column(type="string", name="body")
+     * @JMSSerializer\Expose
      */
-    protected $body;
+    private $body;
 
 //    /**
 //     * @ORM\Column(name="decimal_1", type="decimal", scale=2, precision=8)
