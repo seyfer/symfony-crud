@@ -19,7 +19,7 @@ parameters:
     secret: ThisTokenIsNotSoSecretChangeIt
 
     # nelmio cors
-    cors_allow_origin: 'http://localhost'
+    cors_allow_origin: 'http://localhost:8001'
 
     # nelmio api docs
     api_name: 'Your API name'
