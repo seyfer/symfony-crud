@@ -1,3 +1,5 @@
+<a href="#!create" class="btn btn-success btn-sm">Add</a>
+
 <table class="table table-hover table-responsive">
     <thead>
     <tr>
@@ -12,8 +14,8 @@
         <td>{{ post.id }}</td>
         <td>{{ post.title }}</td>
         <td>
-            <a href="#" class="btn btn-default btn-sm">Edit</a>
-            <a href="#" class="btn btn-danger btn-sm">Delete</a>
+            <a href="#!update/{{ post.id }}" class="btn btn-default btn-sm">Edit</a>
+            <a href="" ng-click="remove(post.id)" class="btn btn-danger btn-sm">Delete</a>
         </td>
     </tr>
 

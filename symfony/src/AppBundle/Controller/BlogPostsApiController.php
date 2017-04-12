@@ -135,6 +135,8 @@ class BlogPostsApiController extends FOSRestController implements ClassResourceI
             'csrf_protection' => false,
         ]);
 
+//        $form->add('id', IntegerType::class, ['mapped' => false]); // this line is new
+
         $form->submit($request->request->all());
 
         if (!$form->isValid()) {
