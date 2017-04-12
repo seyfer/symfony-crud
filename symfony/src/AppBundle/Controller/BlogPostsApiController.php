@@ -5,19 +5,13 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\BlogPost;
 use AppBundle\Entity\Repository\BlogPostRepository;
 use AppBundle\Form\Type\BlogPostType;
-use FOS\RestBundle\View\View;
-use FOS\RestBundle\Controller\Annotations;
-use FOS\RestBundle\View\RouteRedirectView;
+use FOS\RestBundle\Controller\Annotations\RouteResource;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Routing\ClassResourceInterface;
-use FOS\RestBundle\Controller\Annotations\RouteResource;
+use FOS\RestBundle\View\View;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 /**
  * @RouteResource("post")
@@ -104,7 +98,7 @@ class BlogPostsApiController extends FOSRestController implements ClassResourceI
         $em->flush();
 
         $routeOptions = [
-            'id' => $blogPost->getId(),
+            'id'      => $blogPost->getId(),
             '_format' => $request->get('_format'),
         ];
 
@@ -113,7 +107,7 @@ class BlogPostsApiController extends FOSRestController implements ClassResourceI
 
     /**
      * @param Request $request
-     * @param int     $id
+     * @param int $id
      * @return View|\Symfony\Component\Form\Form
      *
      * @ApiDoc(
@@ -151,7 +145,7 @@ class BlogPostsApiController extends FOSRestController implements ClassResourceI
         $em->flush();
 
         $routeOptions = [
-            'id' => $blogPost->getId(),
+            'id'      => $blogPost->getId(),
             '_format' => $request->get('_format'),
         ];
 
@@ -161,7 +155,7 @@ class BlogPostsApiController extends FOSRestController implements ClassResourceI
 
     /**
      * @param Request $request
-     * @param int     $id
+     * @param int $id
      * @return View|\Symfony\Component\Form\Form
      *
      * @ApiDoc(
@@ -199,7 +193,7 @@ class BlogPostsApiController extends FOSRestController implements ClassResourceI
         $em->flush();
 
         $routeOptions = [
-            'id' => $blogPost->getId(),
+            'id'      => $blogPost->getId(),
             '_format' => $request->get('_format'),
         ];
 
