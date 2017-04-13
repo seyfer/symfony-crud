@@ -4,7 +4,8 @@
   "description": "Boilerplate for ReactJS project with hot code reloading",
   "scripts": {
     "start": "node server.js",
-    "lint": "eslint src"
+    "lint": "eslint src",
+    "postinstall": "bower install"
   },
   "repository": {
     "type": "git",
@@ -54,7 +55,7 @@
     "react": "^0.14.9",
     "react-bootstrap": "^0.30.8",
     "react-dom": "^0.14.9",
-    "react-router": "^4.1.1",
+    "react-router": "^2.5.2",
     "style-loader": "^0.16.1"
   }
 }

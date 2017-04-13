@@ -53,7 +53,6 @@ module.exports = {
         ]
     },
     resolve: {
-        modulesDirectories: ["web_modules", "node_modules", "bower_components"],
-    },
-    scripts: {"postinstall": "bower install"}
+        modulesDirectories: ["web_modules", "node_modules", "bower_components", "./"],
+    }
 };
