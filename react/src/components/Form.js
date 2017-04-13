@@ -2,7 +2,13 @@ import React from "react";
 
 const Form = React.createClass({
 
+    componentWillReceiveProps(props) {
+        this.setState(props);
+    },
+
     getInitialState() {
+        console.log(this.props.title);
+
         return {
             body: this.props.body || 'some body',
             title: this.props.title || 'some title'
