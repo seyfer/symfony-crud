@@ -26,10 +26,29 @@ class BlogPostsController extends Controller
     /**
      * @Route("/", name="list")
      */
-    public function listAction()
+    public function listAction(Request $request)
     {
-        $em        = $this->getDoctrine()->getManager();
-        $blogPosts = $em->getRepository('AppBundle:BlogPost')->findAll();
+        $em = $this->getDoctrine()->getManager();
+//        $blogPosts = $em->getRepository('AppBundle:BlogPost')->findAll();
+
+//        $dql   = "SELECT bp FROM AppBundle:BlogPost bp";
+//        $query = $em->createQuery($dql);
+
+        $qb = $em->getRepository('AppBundle:BlogPost')->createQueryBuilder('bp');
+
+        if ($request->query->getAlnum('filter')) {
+            $qb->where('bp.title LIKE :filter')
+               ->setParameter('filter', '%' . $request->query->getAlnum('filter') . '%');
+        }
+
+        $query = $qb->getQuery();
+
+        $paginator = $this->get('knp_paginator');
+        $blogPosts = $paginator->paginate(
+            $query, /* query NOT result */
+            $request->query->getInt('page', 1)/*page number*/,
+            $request->query->getInt('limit', 5)
+        );
 
         return $this->render('BlogPosts/list.html.twig', [
             'blog_posts' => $blogPosts,

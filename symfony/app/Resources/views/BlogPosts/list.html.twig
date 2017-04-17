@@ -1,13 +1,23 @@
 {% extends '::base.html.twig' %}
 
 {% block body %}
-    <a href="{{ path('create') }}" class="btn btn-success btn-sm">Add</a>
+
+    <form class="form-inline    " action="{{ path('list') }}" method="get">
+        <input class="form-control" name="filter">
+        <button class="btn">Submit</button>
+    </form>
+
+    <div class="count">
+        Count: {{ blog_posts.getTotalItemCount }}
+
+        <a href="{{ path('create') }}" class="btn btn-success btn-sm">Add</a>
+    </div>
 
     <table class="table table-hover table-responsive">
         <thead>
         <tr>
-            <th>id</th>
-            <th>Title</th>
+            <th>{{ knp_pagination_sortable(blog_posts,'id','bp.id') }}</th>
+            <th>{{ knp_pagination_sortable(blog_posts,'title','bp.title') }}</th>
             <th>Options</th>
         </tr>
         </thead>
@@ -24,5 +34,9 @@
         {% endfor %}
         </tbody>
     </table>
+
+    <div class="navigation text-center">
+        {{ knp_pagination_render(blog_posts) }}
+    </div>
 
 {% endblock %}
