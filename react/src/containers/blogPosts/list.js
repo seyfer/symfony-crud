@@ -1,6 +1,7 @@
 import React, {Component} from "react";
-import {fetchBlogPosts, deleteBlogPost} from "../../actions/blogPostActions";
+import {deleteBlogPost, fetchBlogPosts} from "../../actions/blogPostActions";
 import Table from "../../components/Table";
+import {Pagination} from "react-bootstrap";
 
 export default class List extends Component {
 
@@ -8,21 +9,39 @@ export default class List extends Component {
         super(props);
 
         this.state = {
-            blogPosts: []
+            blogPosts: [],
+            currentPageNumber: 1,
+            totalItems: 1,
+            itemsPerPage: 10,
+            limit: 10,
+            filterBy: '',
+            sortBy: '',
+            direction: 'asc'
         };
     };
 
-    componentDidMount() {
-        fetchBlogPosts()
-            .then((data) => {
-                this.setState(state => {
-                    state.blogPosts = data;
-                    return state;
-                })
+    getBlogPosts(page, limit, filter = '', sort = '', direction = '') {
+
+        page = page || this.state.currentPageNumber;
+        limit = limit || this.state.limit;
+
+        fetchBlogPosts(page, limit, filter, sort, direction)
+            .then(apiResponse => {
+                console.log('blog posts', apiResponse);
+                this.setState({
+                    blogPosts: apiResponse.data,
+                    currentPageNumber: apiResponse.currentPage,
+                    totalItems: apiResponse.totalItems,
+                    itemsPerPage: apiResponse.itemsPerPage
+                });
             })
             .catch((err) => {
                 console.error('err', err);
             });
+    }
+
+    componentDidMount() {
+        this.getBlogPosts(1);
     };
 
     onDelete(id) {
@@ -43,12 +62,70 @@ export default class List extends Component {
     }
 
     render() {
+
+        let totalPages = Math.ceil(this.state.totalItems / this.state.itemsPerPage);
+
         return (
             <div>
                 <Table blogPosts={this.state.blogPosts}
                        onDelete={this.onDelete.bind(this)}
+                       onSort={this.onSort.bind(this)}
+                       onFilter={this.onFilter.bind(this)}
+                       onLimit={this.onLimit.bind(this)}
                 />
+
+                <Pagination
+                    prev
+                    next
+                    first
+                    last
+                    ellipsis
+                    boundaryLinks
+                    bsSize="medium"
+                    items={totalPages}
+                    activePage={this.state.currentPageNumber}
+                    onSelect={this.handleSelect.bind(this)}/>
             </div>
         );
     }
+
+    handleSelect(number) {
+        console.log('handle select', number);
+
+        this.setState({currentPageNumber: number});
+
+        this.getBlogPosts(number,
+            this.state.limit,
+            this.state.filterBy,
+            this.state.sortBy,
+            this.state.direction);
+    }
+
+    onSort(sortBy, direction) {
+        this.setState({
+            sortBy,
+            direction
+        });
+
+        console.log('list container -- sort by', sortBy);
+
+        this.getBlogPosts(
+            this.state.currentPageNumber,
+            this.state.limit,
+            this.state.filterBy,
+            sortBy,
+            direction
+        );
+    }
+
+    onFilter(filterBy) {
+        this.setState({filterBy: filterBy});
+        this.getBlogPosts(this.state.currentPageNumber, this.state.limit, filterBy);
+    }
+
+    onLimit(limit) {
+        this.setState({limit: limit});
+        this.getBlogPosts(this.state.currentPageNumber, limit);
+    }
+
 }

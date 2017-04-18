@@ -8,8 +8,18 @@ export function fetchBlogPost(id) {
         .catch(err => err);
 }
 
-export function fetchBlogPosts() {
-    return fetch('http://localhost:8000/app_dev.php/posts', {
+export function fetchBlogPosts(pageNumber, limit, filter, sort, direction) {
+    let p = new URLSearchParams();
+
+    p.append('page', pageNumber || 1);
+    p.append('limit', limit || 10);
+    p.append('filter', filter || '');
+    p.append('sort', sort || '');
+    p.append('direction', direction || '');
+
+    console.log('http://api.symfony-3.dev/app_dev.php/posts?', 'http://api.symfony-3.dev/app_dev.php/posts?' + p);
+
+    return fetch('http://localhost:8000/app_dev.php/posts?' + p, {
         method: 'GET',
         mode: 'CORS'
     }).then(res => res.json())
