@@ -1,10 +1,16 @@
 <a href="#!create" class="btn btn-success btn-sm">Add</a>
 
+<label for="limiter">Limit</label>
+<input ng-model="itemsPerPage" type="number" id="limiter">
+
 <table class="table table-hover table-responsive">
     <thead>
     <tr>
-        <th>id</th>
-        <th>Title</th>
+        <th><span ng-click="sortBy('bp.id')">id</span></th>
+        <th>
+            <span ng-click="sortBy('bp.title')">Title</span>
+            <input ng-model="filter" placeholder="filter">
+        </th>
         <th>Options</th>
     </tr>
     </thead>
@@ -21,3 +27,5 @@
 
     </tbody>
 </table>
+
+<ul uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()"></ul>

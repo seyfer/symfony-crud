@@ -129,3 +129,13 @@ fos_rest:
             - { path: ^/, priorities: [json, jsonp ], fallback_format: ~, prefer_extension: true }
     exception:
         enabled: true
+
+jms_serializer:
+    metadata:
+        directories:
+            KnpPaginatorBundle:
+                namespace_prefix: Knp\Bundle\PaginatorBundle
+                path: %kernel.root_dir%/config/serializer/KnpPaginatorBundle
+            KnpPager:
+                namespace_prefix: Knp\Component\Pager
+                path: %kernel.root_dir%/config/serializer/KnpPager

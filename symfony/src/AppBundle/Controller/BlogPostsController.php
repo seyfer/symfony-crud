@@ -46,7 +46,7 @@ class BlogPostsController extends Controller
         $paginator = $this->get('knp_paginator');
         $blogPosts = $paginator->paginate(
             $query, /* query NOT result */
-            $request->query->getInt('page', 1)/*page number*/,
+            $request->query->getInt('page', 1),
             $request->query->getInt('limit', 5)
         );
 

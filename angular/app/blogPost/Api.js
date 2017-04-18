@@ -7,8 +7,18 @@ angular.module('myApp.blogPost')
             return $http.get(ROOT_URL + '/' + id);
         }
 
-        function getAll() {
-            return $http.get(ROOT_URL);
+        function getAll(page, limit, filter, sortBy, direction) {
+            return $http({
+                url: ROOT_URL,
+                method: 'GET',
+                params: {
+                    page: page || 1,
+                    limit: limit || 10,
+                    filter: filter || '',
+                    sort: sortBy || '',
+                    direction: direction || ''
+                }
+            });
         }
 
         function post(data) {
