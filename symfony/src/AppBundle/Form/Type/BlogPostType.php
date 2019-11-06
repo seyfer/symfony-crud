@@ -25,9 +25,9 @@ class BlogPostType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-                                   'data_class'         => 'AppBundle\Entity\BlogPost',
-                                   'allow_extra_fields' => true,
-                               ]);
+            'data_class' => 'AppBundle\Entity\BlogPost',
+            'allow_extra_fields' => true,
+        ]);
     }
 
     public function getName()

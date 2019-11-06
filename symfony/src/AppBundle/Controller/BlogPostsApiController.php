@@ -5,11 +5,14 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\BlogPost;
 use AppBundle\Entity\Repository\BlogPostRepository;
 use AppBundle\Form\Type\BlogPostType;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use FOS\RestBundle\Controller\Annotations\RouteResource;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Routing\ClassResourceInterface;
 use FOS\RestBundle\View\View;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -23,8 +26,8 @@ class BlogPostsApiController extends FOSRestController implements ClassResourceI
      *
      * @param int $id
      * @return mixed
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NoResultException
+     * @throws NonUniqueResultException
      *
      * @ApiDoc(
      *     output="AppBundle\Entity\BlogPost",
@@ -60,13 +63,11 @@ class BlogPostsApiController extends FOSRestController implements ClassResourceI
      */
     public function cgetAction(Request $request)
     {
-//        return $this->getBlogPostRepository()->createFindAllQuery()->getResult();
-
         $queryBuilder = $this->getBlogPostRepository()->createFindAllQuery();
 
         if ($request->query->getAlnum('filter')) {
             $queryBuilder->where('bp.title LIKE :title')
-                         ->setParameter('title', '%' . $request->query->getAlnum('filter') . '%');
+                ->setParameter('title', '%' . $request->query->getAlnum('filter') . '%');
         }
 
         return $this->get('knp_paginator')->paginate(
@@ -78,7 +79,7 @@ class BlogPostsApiController extends FOSRestController implements ClassResourceI
 
     /**
      * @param Request $request
-     * @return View|\Symfony\Component\Form\Form
+     * @return View|Form
      *
      * @ApiDoc(
      *     input="AppBundle\Form\Type\BlogPostType",
@@ -111,7 +112,7 @@ class BlogPostsApiController extends FOSRestController implements ClassResourceI
         $em->flush();
 
         $routeOptions = [
-            'id'      => $blogPost->getId(),
+            'id' => $blogPost->getId(),
             '_format' => $request->get('_format'),
         ];
 
@@ -121,7 +122,7 @@ class BlogPostsApiController extends FOSRestController implements ClassResourceI
     /**
      * @param Request $request
      * @param int $id
-     * @return View|\Symfony\Component\Form\Form
+     * @return View|Form
      *
      * @ApiDoc(
      *     input="AppBundle\Form\Type\BlogPostType",
@@ -160,7 +161,7 @@ class BlogPostsApiController extends FOSRestController implements ClassResourceI
         $em->flush();
 
         $routeOptions = [
-            'id'      => $blogPost->getId(),
+            'id' => $blogPost->getId(),
             '_format' => $request->get('_format'),
         ];
 
@@ -171,7 +172,7 @@ class BlogPostsApiController extends FOSRestController implements ClassResourceI
     /**
      * @param Request $request
      * @param int $id
-     * @return View|\Symfony\Component\Form\Form
+     * @return View|Form
      *
      * @ApiDoc(
      *     input="AppBundle\Form\Type\BlogPostType",
@@ -208,7 +209,7 @@ class BlogPostsApiController extends FOSRestController implements ClassResourceI
         $em->flush();
 
         $routeOptions = [
-            'id'      => $blogPost->getId(),
+            'id' => $blogPost->getId(),
             '_format' => $request->get('_format'),
         ];
 

@@ -39,7 +39,7 @@ twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
     form_themes:
-            - "bootstrap_3_horizontal_layout.html.twig"
+        - "bootstrap_3_horizontal_layout.html.twig"
 
 knp_paginator:
     page_range: 5                      # default page range used in pagination control

@@ -13,7 +13,9 @@ use AppBundle\Entity\BlogPost;
 use AppBundle\Form\Type\BlogPostType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class BlogPostsController
@@ -29,16 +31,12 @@ class BlogPostsController extends Controller
     public function listAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-//        $blogPosts = $em->getRepository('AppBundle:BlogPost')->findAll();
-
-//        $dql   = "SELECT bp FROM AppBundle:BlogPost bp";
-//        $query = $em->createQuery($dql);
 
         $qb = $em->getRepository('AppBundle:BlogPost')->createQueryBuilder('bp');
 
         if ($request->query->getAlnum('filter')) {
             $qb->where('bp.title LIKE :filter')
-               ->setParameter('filter', '%' . $request->query->getAlnum('filter') . '%');
+                ->setParameter('filter', '%' . $request->query->getAlnum('filter') . '%');
         }
 
         $query = $qb->getQuery();
@@ -68,7 +66,7 @@ class BlogPostsController extends Controller
              * @var $blogPost BlogPost
              */
             $blogPost = $form->getData();
-            $em       = $this->getDoctrine()->getManager();
+            $em = $this->getDoctrine()->getManager();
             $em->persist($blogPost);
             $em->flush();
 
@@ -79,14 +77,14 @@ class BlogPostsController extends Controller
         }
 
         return $this->render('BlogPosts/create.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
 
     /**
      * @param Request $request
      * @param BlogPost $blogPost
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @return RedirectResponse|Response
      *
      * @Route("/edit/{blogPost}", name="edit")
      */
@@ -106,14 +104,14 @@ class BlogPostsController extends Controller
         }
 
         return $this->render('BlogPosts/edit.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
 
     /**
      * @param Request $request
      * @param BlogPost $blogPost
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return RedirectResponse
      *
      * @Route("/delete/{blogPost}", name="delete")
      */
