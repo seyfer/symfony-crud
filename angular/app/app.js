@@ -4,9 +4,9 @@
 angular.module('myApp', [
     'ngRoute',
     'ui.bootstrap',
-    'myApp.blogPost'
+    'myApp.blogPost',
     // 'myApp.version'
-]).config(['$locationProvider', '$routeProvider', function ($locationProvider, $routeProvider) {
+]).config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
     $locationProvider.hashPrefix('!');
 
     $routeProvider.otherwise({redirectTo: '/list'});

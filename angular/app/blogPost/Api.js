@@ -1,5 +1,5 @@
 angular.module('myApp.blogPost')
-    .factory('Api', ['$http', function ($http) {
+    .factory('Api', ['$http', function($http) {
 
         var ROOT_URL = 'http://localhost:8000/app_dev.php/posts';
 
@@ -16,8 +16,8 @@ angular.module('myApp.blogPost')
                     limit: limit || 10,
                     filter: filter || '',
                     sort: sortBy || '',
-                    direction: direction || ''
-                }
+                    direction: direction || '',
+                },
             });
         }
 
@@ -38,6 +38,6 @@ angular.module('myApp.blogPost')
             getAll: getAll,
             post: post,
             put: put,
-            remove: remove
-        }
+            remove: remove,
+        };
     }]);
