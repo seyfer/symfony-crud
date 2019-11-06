@@ -1,23 +1,19 @@
-import React from "react";
-import Form from "../../components/Form";
-import {fetchBlogPost, updateBlogPost} from "../../actions/blogPostActions";
+import React from 'react';
+import Form from '../../components/Form';
+import {fetchBlogPost, updateBlogPost} from '../../actions/blogPostActions';
 
 const Update = React.createClass({
 
     getInitialState() {
         return {
-            blogPost: {}
+            blogPost: {},
         };
     },
 
     componentDidMount() {
-        // console.log(this.props.params.postId);
-
         fetchBlogPost(this.props.params.postId)
             .then((data) => {
                 this.setState(state => {
-                    // console.log(data);
-
                     state.blogPost = data;
                     return state;
                 });
@@ -39,10 +35,10 @@ const Update = React.createClass({
             <div>
                 <Form onSubmit={this.handleSubmit}
                       title={this.state.blogPost.title}
-                      body={this.state.blogPost.body}></Form>
+                      body={this.state.blogPost.body} />
             </div>
         );
-    }
+    },
 });
 
 export default Update;

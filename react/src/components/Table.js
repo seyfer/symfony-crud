@@ -1,5 +1,5 @@
-import React, {Component} from "react";
-import {Link} from "react-router";
+import React, {Component} from 'react';
+import {Link} from 'react-router';
 
 export default class Table extends Component {
 
@@ -13,7 +13,7 @@ export default class Table extends Component {
             itemsPerPage: props.itemsPerPage,
             reverse: true,
             titleFilter: '',
-            limit: props.itemsPerPage
+            limit: props.itemsPerPage,
         };
     };
 
@@ -25,7 +25,7 @@ export default class Table extends Component {
     sortingHandler(sortBy) {
         this.setState({
             sortBy: sortBy,
-            reverse: !this.state.reverse
+            reverse: !this.state.reverse,
         });
 
         this.props.onSort(sortBy, this.state.reverse ? 'desc' : 'asc');
@@ -33,14 +33,14 @@ export default class Table extends Component {
 
     titleFilterHandler(e) {
         this.setState({
-            titleFilter: e.target.value
+            titleFilter: e.target.value,
         });
         this.props.onFilter(e.target.value || '');
     }
 
     limitHandler(e) {
         this.setState({
-            limit: e.target.value
+            limit: e.target.value,
         });
         this.props.onLimit(e.target.value, this.state.itemsPerPage);
     }
@@ -54,7 +54,7 @@ export default class Table extends Component {
                        id="table_limiter"
                        value={this.state.limit}
                        onChange={this.limitHandler.bind(this)}
-                       className="form-control"/>
+                       className="form-control" />
 
                 <Link to="/posts/create" className="btn btn-lg btn-success">Create</Link>
 
@@ -70,7 +70,7 @@ export default class Table extends Component {
                                    id="table_blog_title_filter"
                                    value={this.state.titleFilter}
                                    onChange={this.titleFilterHandler.bind(this)}
-                                   className="form-control"/>
+                                   className="form-control" />
                         </th>
                         <th>Options</th>
                     </tr>

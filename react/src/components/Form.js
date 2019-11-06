@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 const Form = React.createClass({
 
@@ -7,23 +7,21 @@ const Form = React.createClass({
     },
 
     getInitialState() {
-        console.log(this.props.title);
-
         return {
             body: this.props.body || 'some body',
-            title: this.props.title || 'some title'
-        }
+            title: this.props.title || 'some title',
+        };
     },
 
     handleBodyChange(e) {
         this.setState({
-            body: e.target.value
+            body: e.target.value,
         });
     },
 
     handleTitleChange(e) {
         this.setState({
-            title: e.target.value
+            title: e.target.value,
         });
     },
 
@@ -46,7 +44,7 @@ const Form = React.createClass({
                                    required="required"
                                    value={this.state.title}
                                    onChange={this.handleTitleChange}
-                                   className="form-control"/>
+                                   className="form-control" />
                         </div>
                     </div>
                     <div className="form-group">
@@ -57,7 +55,7 @@ const Form = React.createClass({
                                    required="required"
                                    value={this.state.body}
                                    onChange={this.handleBodyChange}
-                                   className="form-control"/>
+                                   className="form-control" />
                         </div>
                     </div>
                     <div className="form-group">
@@ -73,7 +71,7 @@ const Form = React.createClass({
                 </div>
             </form>
         );
-    }
+    },
 });
 
 export default Form;

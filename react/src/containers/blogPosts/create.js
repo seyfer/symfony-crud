@@ -1,13 +1,13 @@
-import React, {Component} from "react";
-import Form from "../../components/Form";
-import {createBlogPost} from "../../actions/blogPostActions";
+import React, {Component} from 'react';
+import Form from '../../components/Form';
+import {createBlogPost} from '../../actions/blogPostActions';
 
 export default class Create extends Component {
 
     handleSubmit(data) {
         createBlogPost(data)
             .then(res => {
-                this.props.router.push("/").bind(this);
+                this.props.router.push('/').bind(this);
             });
     }
 

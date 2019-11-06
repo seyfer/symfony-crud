@@ -1,7 +1,7 @@
-import React, {Component} from "react";
-import {deleteBlogPost, fetchBlogPosts} from "../../actions/blogPostActions";
-import Table from "../../components/Table";
-import {Pagination} from "react-bootstrap";
+import React, {Component} from 'react';
+import {deleteBlogPost, fetchBlogPosts} from '../../actions/blogPostActions';
+import Table from '../../components/Table';
+import {Pagination} from 'react-bootstrap';
 
 export default class List extends Component {
 
@@ -16,7 +16,7 @@ export default class List extends Component {
             limit: 10,
             filterBy: '',
             sortBy: '',
-            direction: 'asc'
+            direction: 'asc',
         };
     };
 
@@ -27,12 +27,11 @@ export default class List extends Component {
 
         fetchBlogPosts(page, limit, filter, sort, direction)
             .then(apiResponse => {
-                console.log('blog posts', apiResponse);
                 this.setState({
                     blogPosts: apiResponse.data,
                     currentPageNumber: apiResponse.currentPage,
                     totalItems: apiResponse.totalItems,
-                    itemsPerPage: apiResponse.itemsPerPage
+                    itemsPerPage: apiResponse.itemsPerPage,
                 });
             })
             .catch((err) => {
@@ -84,14 +83,12 @@ export default class List extends Component {
                     bsSize="medium"
                     items={totalPages}
                     activePage={this.state.currentPageNumber}
-                    onSelect={this.handleSelect.bind(this)}/>
+                    onSelect={this.handleSelect.bind(this)} />
             </div>
         );
     }
 
     handleSelect(number) {
-        console.log('handle select', number);
-
         this.setState({currentPageNumber: number});
 
         this.getBlogPosts(number,
@@ -104,17 +101,15 @@ export default class List extends Component {
     onSort(sortBy, direction) {
         this.setState({
             sortBy,
-            direction
+            direction,
         });
-
-        console.log('list container -- sort by', sortBy);
 
         this.getBlogPosts(
             this.state.currentPageNumber,
             this.state.limit,
             this.state.filterBy,
             sortBy,
-            direction
+            direction,
         );
     }
 
@@ -127,5 +122,4 @@ export default class List extends Component {
         this.setState({limit: limit});
         this.getBlogPosts(this.state.currentPageNumber, limit);
     }
-
 }
